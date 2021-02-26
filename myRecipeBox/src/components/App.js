@@ -3,6 +3,7 @@ import Header from './Header';
 import Admin from './Admin';
 import Card from './Card.js';
 import recettes from '../recettes.js';
+import base from '../base.js';
 
 class App extends React.Component {
 
@@ -10,8 +11,38 @@ class App extends React.Component {
         recettes: {}
     };
 
+    componentWillMount() {
+        this.ref = base.syncState( `${this.props.match.params.pseudo}/recettes`, {
+            context: this,
+            state: 'recettes'
+        } )
+    }
+
+    componentWillUnmount() {
+        base.removeBinding(this.ref);
+    }
+
     chargerExemple = () => {
         this.setState({recettes});
+    };
+
+    ajouterRecette = (recette) => {
+        const recettes = {...this.state.recettes};
+        const timestamp = Date.now();
+        recettes[`recette-${timestamp}`] = recette;
+        this.setState({recettes});
+    }
+
+    majRecette = (key, majRecette) => {
+        const recettes = {...this.state.recettes};
+        recettes[key] = majRecette;
+        this.setState({recettes});
+    };
+
+    supprimerRecette = (key) => {
+        const recettes = {...this.state.recettes};
+        recettes[key] = null;
+        this.setState({recettes})
     };
 
     render() {
@@ -26,7 +57,14 @@ class App extends React.Component {
                 <div className="cards">
                     {cards}
                 </div>
-                <Admin chargerExemple={this.chargerExemple} />
+                <Admin 
+                    recettes={this.state.recettes}
+                    chargerExemple={this.chargerExemple} 
+                    ajouterRecette={this.ajouterRecette}
+                    majRecette={this.majRecette}
+                    supprimerRecette={this.supprimerRecette}
+                    pseudo={this.props.match.params.pseudo}
+                />
             </div>
         )
     }
