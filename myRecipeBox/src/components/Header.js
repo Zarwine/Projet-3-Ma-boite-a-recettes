@@ -2,20 +2,20 @@ import React from 'react';
 
 class Header extends React.Component {
 
-    convertirPseudo = (pseudo) => {
-        return /[aeiouy]/i.test(pseudo[0]) ? `d'${pseudo}` : `de ${pseudo}`
-    };
+    nicknameIntroduction = (nickname) => {
+        return /[aeiouy]/i.test(nickname[0]) ? `d'${nickname}` : `de ${nickname}`
+    }
 
     render() {
         return (
             <header>
-                <h1>La boîte à recette {this.convertirPseudo(this.props.pseudo)}</h1>
+                <h1>La boîte à recette {this.nicknameIntroduction(this.props.nickname)}</h1>
             </header>
         )
     }
 
     static propTypes = {
-        pseudo: React.PropTypes.string.isRequired
+        nickname: React.PropTypes.string.isRequired
     }
 }
 

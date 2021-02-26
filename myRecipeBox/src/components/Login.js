@@ -1,13 +1,13 @@
 import React from 'react';
 import {PropTypes} from 'prop-types';
 
-class Connexion extends React.Component {
+class Login extends React.Component {
 
     goToApp = event => {
         event.preventDefault();
-        const pseudo = this.boxInput.value;
-        this.props.history.push(`/box/${pseudo}`);
-    };
+        const nickname = this.boxInput.value;
+        this.props.history.push(`/box/${nickname}`);
+    }
 
     render() {
         return (
@@ -31,4 +31,4 @@ class Connexion extends React.Component {
     }
 }
 
-export default Connexion;
+export default Login;

@@ -2,7 +2,6 @@ import React from 'react';
 
 class Card extends React.Component {
     render() {
-
         const ingredients = this.props.details.ingredients
             .split(',')
             .map((item, key) => <li key={key}>{item}</li>);
@@ -13,10 +12,10 @@ class Card extends React.Component {
         return (
             <div className="card">
                 <div className="image">
-                    <img src={this.props.details.image} alt={this.props.details.nom} />
+                    <img src={this.props.details.image} alt={this.props.details.name} />
                 </div>
                 <div className="recette">
-                    <h2>{this.props.details.nom}</h2>
+                    <h2>{this.props.details.name}</h2>
                     <ul className="liste-ingredients">
                         {ingredients}
                     </ul>

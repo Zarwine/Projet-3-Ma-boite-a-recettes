@@ -2,68 +2,68 @@ import React from 'react';
 import Header from './Header';
 import Admin from './Admin';
 import Card from './Card.js';
-import recettes from '../recettes.js';
+import recipes from '../recipes.js';
 import base from '../base.js';
 
 class App extends React.Component {
 
     state = {
-        recettes: {}
-    };
+        recipes: {}
+    }
 
     componentWillMount() {
-        this.ref = base.syncState( `${this.props.match.params.pseudo}/recettes`, {
+        this.ref = base.syncState( `${this.props.match.params.nickname}/recipes`, {
             context: this,
-            state: 'recettes'
+            state: 'recipes'
         } )
     }
 
     componentWillUnmount() {
-        base.removeBinding(this.ref);
+        base.removeBinding(this.ref)
     }
 
-    chargerExemple = () => {
-        this.setState({recettes});
-    };
-
-    ajouterRecette = (recette) => {
-        const recettes = {...this.state.recettes};
-        const timestamp = Date.now();
-        recettes[`recette-${timestamp}`] = recette;
-        this.setState({recettes});
+    loadExemple = () => {
+        this.setState({recipes})
     }
 
-    majRecette = (key, majRecette) => {
-        const recettes = {...this.state.recettes};
-        recettes[key] = majRecette;
-        this.setState({recettes});
-    };
+    addRecipe = (recipe) => {
+        const recipes = {...this.state.recipes}
+        const timestamp = Date.now()
+        recipes[`recipe-${timestamp}`] = recipe
+        this.setState({recipes})
+    }
 
-    supprimerRecette = (key) => {
-        const recettes = {...this.state.recettes};
-        recettes[key] = null;
-        this.setState({recettes})
-    };
+    updateRecipe = (key, updateRecipe) => {
+        const recettes = {...this.state.recipes}
+        recettes[key] = updateRecipe
+        this.setState({recipes})
+    }
+
+    deleteRecipe = (key) => {
+        const recipes = {...this.state.recipes}
+        recipes[key] = null
+        this.setState({recipes})
+    }
 
     render() {
 
         const cards = Object
-            .keys(this.state.recettes)
-            .map(key => <Card key={key} details={this.state.recettes[key]} />);
+            .keys(this.state.recipes)
+            .map(key => <Card key={key} details={this.state.recipes[key]} />)
 
         return (
             <div className="box">
-                <Header pseudo={this.props.match.params.pseudo} />
+                <Header nickname={this.props.match.params.nickname} />
                 <div className="cards">
                     {cards}
                 </div>
                 <Admin 
-                    recettes={this.state.recettes}
-                    chargerExemple={this.chargerExemple} 
-                    ajouterRecette={this.ajouterRecette}
-                    majRecette={this.majRecette}
-                    supprimerRecette={this.supprimerRecette}
-                    pseudo={this.props.match.params.pseudo}
+                    recipes={this.state.recipes}
+                    loadExemples={this.loadExemple} 
+                    addRecipe={this.addRecipe}
+                    updateRecipe={this.updateRecipe}
+                    deleteRecipe={this.deleteRecipe}
+                    nickname={this.props.match.params.nickname}
                 />
             </div>
         )
@@ -71,7 +71,7 @@ class App extends React.Component {
 
     static propTypes = {
         match: React.PropTypes.object.isRequired,
-    };
+    }
 }
 
 export default App;

@@ -2,7 +2,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 // Components
-import Connexion from './components/Connexion';
+import Login from './components/Login';
 import App from './components/App';
 import NotFound from './components/NotFound';
 // Router
@@ -14,8 +14,8 @@ const Root = () => {
     return (
         <Router>
             <Switch>
-                <Route path={"/"} exact component={Connexion} />
-                <Route path={"/box/:pseudo"} exact component={App} />
+                <Route path={"/"} exact component={Login} />
+                <Route path={"/box/:nickname"} exact component={App} />
                 <Route component={NotFound} />
             </Switch>
         </Router>
@@ -25,4 +25,4 @@ const Root = () => {
 render(
     <Root />,
     document.getElementById('root')
-);
+)

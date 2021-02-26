@@ -1,17 +1,17 @@
 import React from 'react';
 
-class AjouterRecette extends React.Component {
+class AddRecipe extends React.Component {
 
-    creerRecette = event => {
+    createRecipe = event => {
         event.preventDefault()
-        const recette = {
-            nom: this.nom.value,
+        const recipe = {
+            name: this.name.value,
             image: this.image.value,
             ingredients: this.ingredients.value,
             instructions: this.instructions.value
         }
-        this.props.ajouterRecette(recette);
-        this.recetteForm.reset();
+        this.props.ajouterRecette(recipe)
+        this.recipeForm.reset()
     };
 
     render() {
@@ -19,10 +19,10 @@ class AjouterRecette extends React.Component {
             <div className="card">
                 <form 
                     className="admin-form ajouter-recette" 
-                    ref={input => this.recetteForm = input}
-                    onSubmit={e => this.creerRecette(e)}
+                    ref={input => this.recipeForm = input}
+                    onSubmit={e => this.createRecipe(e)}
                 >
-                    <input ref={input => this.nom = input} type="text" placeholder="Nom de la recette" />
+                    <input ref={input => this.name = input} type="text" placeholder="Nom de la recette" />
                     <input ref={input => this.image = input} type="text" placeholder="Adresse de l'image" />
                     <textarea ref={input => this.ingredients = input} rows="3" placeholder="Liste des ingrédients séparés par une virgule"></textarea>
                     <textarea ref={input => this.instructions = input} rows="3" placeholder="Liste des instructions (une par ligne)"></textarea>
@@ -33,8 +33,8 @@ class AjouterRecette extends React.Component {
     }
 
     static propTypes = {
-        ajouterRecette: React.PropTypes.func.isRequired
+        addRecipe: React.PropTypes.func.isRequired
     }
 }
 
-export default AjouterRecette;
+export default AddRecipe;
